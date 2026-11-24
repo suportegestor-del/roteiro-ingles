@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roteiro de Inglês A1–A2</title>
+<meta name="theme-color" content="#2340d6">
+<meta name="description" content="Roteiro diário de inglês, do A1 ao A2, com progresso salvo.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglês">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE everyday: a study companion, upbeat but tidy
+   IDEA a game's quest log: 12 weeks as 12 levels, each day a quest to clear
+   PICTURE the 84-day progress grid, cells lighting up as days are cleared, with the big % beside it
+   COLOUR cobalt field for the header, white ground, sunflower yellow for cleared days, coral for today's focus
+   TYPE Rubik for display, Inter for text
+   LAYOUT laptop: title + % left, grid right inside the cobalt band; below, week tabs then week panel in two columns. Phone: title, %, grid, tabs, panel stacked */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#0b1030);--ink:light-dark(#121633,#eef0ff);--mute:light-dark(#5a5f80,#a8adcf);--band:light-dark(#2340d6,#16207a);--bandink:#ffffff;--sun:#ffd23f;--coral:#ff6b57;--card:light-dark(#f3f5ff,#141a45);--line:light-dark(#dfe3f7,#262e66);--chip:light-dark(#e8ecff,#1c2459)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+.band{padding-block:clamp(24px,4vw,56px);padding-left:max(5vw,16px);padding-right:max(5vw,16px)}
+.wrap{max-width:1240px;margin:0 auto}
+h1,h2,h3{font-family:Rubik,Inter,sans-serif;line-height:1.05;letter-spacing:-.02em;margin:0;text-wrap:balance}
+h1{font-size:clamp(32px,4.6vw,50px);font-weight:800}
+h2{font-size:clamp(26px,3vw,34px);font-weight:700}
+h3{font-size:19px;font-weight:700;margin-bottom:10px}
+a{color:inherit}
+.top{background:var(--band);color:var(--bandink)}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(20px,4vw,56px);align-items:center}
+.lead{opacity:.88;margin:12px 0 22px;max-width:46ch}
+.pct{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.pct b{font:800 clamp(60px,9vw,104px)/1 Rubik,sans-serif;letter-spacing:-.03em}
+.pct span{font-size:17px;opacity:.9}
+.bar{height:12px;border-radius:6px;background:rgba(255,255,255,.22);margin-top:16px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--sun);border-radius:6px;transition:width .5s}
+.grid{display:grid;grid-template-columns:auto repeat(7,minmax(0,1fr));gap:5px;align-items:center}
+.grid .wl{font:600 13px Inter,sans-serif;opacity:.85;padding-right:6px;white-space:nowrap}
+.grid .dh{font:600 13px Inter,sans-serif;opacity:.75;text-align:center}
+.cell{aspect-ratio:1.6;border:0;border-radius:6px;background:rgba(255,255,255,.16);cursor:pointer;padding:0;min-height:18px}
+.cell.done{background:var(--sun);box-shadow:inset 0 -3px 0 rgba(0,0,0,.18)}
+.cell.cur{outline:2px solid #fff;outline-offset:1px}
+.cell:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.tab{flex:none;scroll-snap-align:start;min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 15px Inter,sans-serif;cursor:pointer;text-align:left}
+.tab small{display:block;font-weight:500;color:var(--mute);font-size:13px}
+.tab[aria-selected=true]{background:var(--band);color:#fff;border-color:var(--band)}
+.tab[aria-selected=true] small{color:#dfe5ff}
+.tab:focus-visible,.btn:focus-visible,.day summary:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.wk{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(20px,3vw,40px);margin-top:26px}
+.wkhead{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-end;margin-top:28px}
+.wkhead p{margin:8px 0 0;color:var(--mute);max-width:60ch}
+.wkp{font:700 16px Rubik,sans-serif;white-space:nowrap}
+.panel{background:var(--card);border-radius:14px;padding:20px;margin-bottom:18px}
+.day{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;background:var(--bg)}
+.day summary{list-style:none;display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;min-height:56px;border-radius:12px}
+.day summary::-webkit-details-marker{display:none}
+.day .nm{font:700 16px Rubik,sans-serif;width:64px;flex:none}
+.day .fc{flex:1;color:var(--mute);font-size:15px}
+.day .ar{flex:none;transition:transform .2s;color:var(--mute)}
+.day[open] .ar{transform:rotate(90deg)}
+.chk{flex:none;width:28px;height:28px;accent-color:#e0a800;cursor:pointer}
+.day.isdone{background:color-mix(in srgb,var(--sun) 18%,var(--bg));border-color:color-mix(in srgb,var(--sun) 60%,var(--line))}
+.day.isdone .nm{text-decoration:line-through;text-decoration-thickness:2px}
+.dbody{padding:0 16px 16px}
+.task{display:grid;grid-template-columns:62px minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.min{font:700 15px Rubik,sans-serif;white-space:nowrap;background:var(--chip);border-radius:8px;text-align:center;padding:6px 4px;align-self:start}
+.task p{margin:0}
+.task .rs{font-size:14px;color:var(--mute);margin-top:2px}
+.words{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.w{background:var(--chip);border-radius:8px;padding:4px 9px;font-size:14px}
+.w em{font-style:normal;color:var(--mute)}
+.hidept .w em{visibility:hidden}
+.tot{font-size:14px;color:var(--mute);padding-top:10px;border-top:1px solid var(--line)}
+.ex{margin:10px 0 0;padding:0;list-style:none}
+.ex li{padding:6px 0;border-top:1px solid var(--line)}
+.ex li span{display:block;color:var(--mute);font-size:14px}
+.chunks{display:flex;flex-wrap:wrap;gap:8px}
+.chunks span{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:15px}
+.res{list-style:none;margin:0;padding:0}
+.res li{padding:9px 0;border-top:1px solid var(--line)}
+.res li:first-child{border-top:0}
+.res small{display:block;color:var(--mute);font-size:14px}
+.vhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.btn{min-height:44px;padding:8px 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 14px Inter,sans-serif;cursor:pointer}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(12em,1fr));gap:6px 14px;margin-top:8px}
+.vgrid div{font-size:15px;padding:4px 0;border-bottom:1px solid var(--line)}
+.vgrid em{font-style:normal;color:var(--mute)}
+.note{font-size:14px;color:var(--mute);margin-top:30px}
+.backup{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.backup span{font-size:14px;color:var(--mute)}
+.top{padding-top:max(clamp(24px,4vw,56px),env(safe-area-inset-top))}
+@media(max-width:900px){.hero{grid-template-columns:minmax(0,1fr)}.wk{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:600px){.grid{gap:3px}.grid .wl{font-size:13px}.task{grid-template-columns:52px minmax(0,1fr)}.day .fc{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.bar i,.day .ar{transition:none}}
+</style>
+</head>
+<body>
+<header class="top band">
+  <div class="wrap hero">
+    <div>
+      <h1>Roteiro de inglês: 12 semanas do A1 ao A2</h1>
+      <p class="lead">Fase 1 do seu plano: 90 minutos por dia, temas do cotidiano, com jogos e política no meio. Abra um dia para ver o que estudar e marque quando concluir.</p>
+      <div class="pct"><b id="pct">0%</b><span id="pctTxt">0 de 84 dias concluídos</span></div>
+      <div class="bar"><i id="barFill" style="width:0"></i></div>
+    </div>
+    <div class="grid" id="grid" aria-label="Mapa de progresso: 12 semanas por 7 dias"></div>
+  </div>
+</header>
+
+<main class="band">
+  <div class="wrap">
+    <div class="tabs" id="tabs" role="tablist" aria-label="Semanas"></div>
+    <div id="week"></div>
+    <p class="note">O seu progresso fica salvo neste aparelho. Para levar para outro celular ou computador, use o backup abaixo. Os links de vídeo abrem uma busca no YouTube com o termo certo, para você escolher o vídeo do seu nível pelo teste dos 80%.</p>
+    <div class="backup"><button class="btn" id="expBtn" type="button">Exportar progresso</button><button class="btn" id="impBtn" type="button">Importar progresso</button><input type="file" id="impFile" accept="application/json,.json" hidden><span id="bkMsg" role="status"></span></div>
+  </div>
+</main>
+
+<script>
+{
+const DAYS=["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"];
+const DAYN=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"];
+const yt=q=>"https://www.youtube.com/results?search_query="+encodeURIComponent(q);
+const R={
+  anki:{n:"Anki",u:"https://apps.ankiweb.net/"},
+  ci:{n:"English Comprehensible Input for ESL Beginners (YouTube)"},
+  bbc:{n:"BBC Learning English",u:"https://www.bbc.co.uk/learningenglish/"},
+  nil:{n:"News in Levels (nível 1)",u:"https://www.newsinlevels.com/"},
+  voa:{n:"VOA Learning English",u:"https://learningenglish.voanews.com/"},
+  lr:{n:"Language Reactor",u:"https://www.languagereactor.com/"},
+  yg:{n:"YouGlish",u:"https://youglish.com/"},
+  ia:{n:"IA com modo de voz (Claude, ChatGPT ou Gemini)"},
+  cam:{n:"Cambridge Dictionary",u:"https://dictionary.cambridge.org/pt/"}
+};
+
+const W=[
+{t:"Quem sou eu",en:"Introductions",goal:"Se apresentar, dizer de onde é, idade e profissão.",
+g:"Verb to be (am / is / are)",gx:"O verbo to be é 'ser' e 'estar' ao mesmo tempo. Use am com I, is com he/she/it e are com you/we/they. Na negativa, acrescente not (I'm not). Na pergunta, inverta: Are you…?",
+ge:[["I am Lucas. I'm from Brazil.","Eu sou o Lucas. Sou do Brasil."],["She is a teacher.","Ela é professora."],["We aren't tired.","Nós não estamos cansados."],["Are you a gamer?","Você é gamer?"]],
+ch:["Hi, my name is…","Nice to meet you.","I'm from Brazil.","I'm … years old.","What about you?"],
+ci:"comprehensible input English beginners introduce yourself",bbc:"BBC Learning English introducing yourself beginners",news:"uma notícia curta sobre um país do mundo",game:"o começo de Pokémon ou Stardew Valley, quando os personagens se apresentam",gamev:"Pokemon gameplay English beginning",rp:"Você chega numa festa e não conhece ninguém. A IA é uma pessoa simpática que puxa conversa.",speak:"Se apresente em voz alta em 5 frases: nome, idade, cidade, profissão, um hobby.",write:"Escreva 5 frases se apresentando e peça correção para a IA.",
+v:"hello=olá|hi=oi|good morning=bom dia|good afternoon=boa tarde|good evening=boa noite|goodbye=adeus, tchau|see you later=até mais|name=nome|first name=primeiro nome|last name=sobrenome|nice to meet you=prazer em conhecer|how are you?=como você está?|fine=bem|thank you=obrigado(a)|please=por favor|sorry=desculpe|excuse me=com licença|yes=sim|no=não|I=eu|you=você|he=ele|she=ela|we=nós|they=eles, elas|it=isso (coisa ou animal)|am / is / are=sou, estou / é, está / são, estão|from=de (origem)|country=país|city=cidade|Brazilian=brasileiro(a)|American=americano(a)|English=inglês|Portuguese=português|language=idioma|age=idade|years old=anos de idade|zero=zero|one=um|two=dois|three=três|four=quatro|five=cinco|six=seis|seven=sete|eight=oito|nine=nove|ten=dez|eleven=onze|twelve=doze|twenty=vinte|student=estudante|teacher=professor(a)|job=emprego|doctor=médico(a)|engineer=engenheiro(a)|developer=desenvolvedor(a)|salesperson=vendedor(a)|gamer=jogador(a) de videogame|friend=amigo(a)|man=homem|woman=mulher|boy=menino|girl=menina|person=pessoa|people=pessoas|married=casado(a)|single=solteiro(a)|phone number=número de telefone|email address=endereço de e-mail|where=onde|what=o que, qual|who=quem|how old=quantos anos|live=morar|speak=falar|meet=conhecer|welcome=bem-vindo|happy=feliz|good=bom|bad=ruim|great=ótimo"},
+{t:"Minha casa e minha manhã",en:"Home & morning routine",goal:"Descrever a casa e contar o que você faz de manhã.",
+g:"Present simple (I / you / we / they)",gx:"Usado para rotinas e fatos. Com I, you, we e they o verbo fica na forma base. Na negativa use don't, na pergunta comece com Do.",
+ge:[["I wake up at 7.","Eu acordo às 7."],["We don't cook at home.","Nós não cozinhamos em casa."],["Do you take a shower in the morning?","Você toma banho de manhã?"],["They live in an apartment.","Eles moram num apartamento."]],
+ch:["I wake up at…","I usually…","I don't…","Do you…?","First… then…"],
+ci:"comprehensible input English beginners my house morning routine",bbc:"BBC Learning English daily routine",news:"uma notícia sobre casas, aluguel ou cidades",game:"Stardew Valley: a rotina da fazenda de manhã",gamev:"Stardew Valley first day gameplay no commentary",rp:"A IA é uma pessoa que quer alugar o seu apartamento e pergunta sobre os cômodos.",speak:"Narre em voz alta o que você faz da hora que acorda até sair de casa.",write:"Escreva 6 frases sobre a sua manhã usando first, then e after that.",
+v:"house=casa (construção)|home=lar, casa|room=cômodo, quarto|bedroom=quarto|bathroom=banheiro|kitchen=cozinha|living room=sala de estar|door=porta|window=janela|floor=chão, andar|wall=parede|bed=cama|pillow=travesseiro|blanket=cobertor|table=mesa|chair=cadeira|sofa=sofá|lamp=luminária|mirror=espelho|shower=chuveiro|towel=toalha|toothbrush=escova de dentes|toothpaste=pasta de dente|soap=sabonete|sink=pia|fridge=geladeira|stove=fogão|cup=xícara|plate=prato|glass=copo|fork=garfo|knife=faca|spoon=colher|clothes=roupas|shoes=sapatos|keys=chaves|wake up=acordar|get up=levantar|take a shower=tomar banho|brush my teeth=escovar os dentes|get dressed=se vestir|make breakfast=preparar o café da manhã|have breakfast=tomar café da manhã|drink=beber|eat=comer|wash=lavar|open=abrir|close=fechar|turn on=ligar|turn off=desligar|clean=limpar|cook=cozinhar|sleep=dormir|go to bed=ir para a cama|leave home=sair de casa|come back=voltar|morning=manhã|night=noite|every day=todo dia|always=sempre|usually=geralmente|sometimes=às vezes|never=nunca|early=cedo|late=tarde, atrasado|alarm clock=despertador|coffee=café|water=água|bread=pão|milk=leite|apartment=apartamento|neighbor=vizinho(a)|stairs=escada|garden=jardim|upstairs=no andar de cima|downstairs=no andar de baixo|roof=telhado|closet=armário de roupas|trash=lixo"},
+{t:"Comida e restaurante",en:"Food & eating out",goal:"Pedir comida, dizer do que gosta e pagar a conta.",
+g:"There is / there are + some / any",gx:"There is (singular) e there are (plural) significam 'há' ou 'tem'. Use some em frases afirmativas e any em negativas e perguntas.",
+ge:[["There is a pizza on the table.","Tem uma pizza na mesa."],["There are some eggs in the fridge.","Tem alguns ovos na geladeira."],["There isn't any milk.","Não tem leite."],["Are there any vegetarian dishes?","Tem algum prato vegetariano?"]],
+ch:["I'd like…, please.","Can I have the bill, please?","Is there…?","There are some…","I'm hungry."],
+ci:"comprehensible input English beginners food restaurant",bbc:"BBC Learning English ordering food restaurant",news:"uma notícia sobre preços de comida",game:"Overcooked ou um jogo de cozinhar, nomeando cada ingrediente",gamev:"Overcooked gameplay English",rp:"A IA é garçom num restaurante em Nova York. Você pede entrada, prato principal, bebida e a conta.",speak:"Abra a geladeira e diga o que tem e o que não tem: There is… / There isn't any…",write:"Escreva o seu cardápio de um dia (café, almoço, jantar) em 6 frases.",
+v:"food=comida|drink=bebida|breakfast=café da manhã|lunch=almoço|dinner=jantar|snack=lanche|rice=arroz|beans=feijão|meat=carne|chicken=frango|beef=carne de vaca|pork=carne de porco|fish=peixe|egg=ovo|cheese=queijo|butter=manteiga|salad=salada|vegetables=legumes, verduras|fruit=fruta|apple=maçã|banana=banana|orange=laranja|grapes=uvas|strawberry=morango|tomato=tomate|potato=batata|onion=cebola|garlic=alho|carrot=cenoura|lettuce=alface|pasta=massa, macarrão|hamburger=hambúrguer|fries=batata frita|sandwich=sanduíche|soup=sopa|sugar=açúcar|salt=sal|pepper=pimenta|oil=óleo, azeite|juice=suco|soda=refrigerante|beer=cerveja|wine=vinho|tea=chá|ice=gelo|dessert=sobremesa|cake=bolo|ice cream=sorvete|chocolate=chocolate|menu=cardápio|waiter=garçom|waitress=garçonete|bill / check=conta|tip=gorjeta|order=pedido, pedir|table for two=mesa para dois|delicious=delicioso|spicy=apimentado|sweet=doce|salty=salgado|hot=quente|cold=frio|hungry=com fome|thirsty=com sede|full=satisfeito, cheio|vegetarian=vegetariano|restaurant=restaurante|bakery=padaria|supermarket=supermercado|I'd like=eu gostaria|can I have=pode me ver, posso pedir|how much=quanto custa|cash=dinheiro vivo|card=cartão|takeaway / to go=para viagem|chef=cozinheiro(a), chef|bowl=tigela|bottle=garrafa|napkin=guardanapo"},
+{t:"Família e pessoas",en:"Family & people",goal:"Falar da sua família e descrever pessoas.",
+g:"Possessivos (my, your, his, her…) + have / has + 's",gx:"Possessivos vêm antes do substantivo: my mom, his car. Para dizer 'de alguém' use 's: Ana's brother. Have é 'ter' com I/you/we/they; has com he/she/it.",
+ge:[["My sister has long hair.","Minha irmã tem cabelo comprido."],["His dad is tall.","O pai dele é alto."],["Ana's brother is a gamer.","O irmão da Ana é gamer."],["Do you have any cousins?","Você tem primos?"]],
+ch:["I have … brothers and sisters.","My mom is…","She has long hair.","He looks like…","We get along well."],
+ci:"comprehensible input English beginners my family",bbc:"BBC Learning English describing people appearance",news:"uma notícia sobre famílias ou uma pessoa famosa",game:"The Sims: criar uma família e descrever cada pessoa",gamev:"The Sims 4 create a family gameplay",rp:"A IA é um amigo novo que pergunta sobre a sua família e mostra fotos da dele.",speak:"Descreva 3 pessoas da sua família: aparência e personalidade.",write:"Escreva um parágrafo curto sobre a sua família usando my, his, her e has.",
+v:"family=família|parents=pais|father=pai|mother=mãe|dad=pai (informal)|mom=mãe (informal)|son=filho|daughter=filha|brother=irmão|sister=irmã|husband=marido|wife=esposa|boyfriend=namorado|girlfriend=namorada|grandfather=avô|grandmother=avó|grandparents=avós|uncle=tio|aunt=tia|cousin=primo(a)|nephew=sobrinho|niece=sobrinha|baby=bebê|child=criança|children=crianças, filhos|kid=criança (informal)|teenager=adolescente|adult=adulto|old=velho, idoso|young=jovem|tall=alto|short=baixo, curto|thin=magro|strong=forte|beautiful=bonita|handsome=bonito (homem)|pretty=bonita, bonitinha|hair=cabelo|eyes=olhos|long=comprido|curly=cacheado|straight=liso|blond=loiro|dark hair=cabelo escuro|brown=castanho, marrom|blue=azul|green=verde|glasses=óculos|beard=barba|friendly=simpático|funny=engraçado|smart=inteligente|kind=gentil|shy=tímido|lazy=preguiçoso|hard-working=trabalhador, esforçado|quiet=quieto|talkative=falante|serious=sério|nice=legal, simpático|my=meu, minha|your=seu, sua|his=dele|her=dela|our=nosso|their=deles|have / has=ter, tem|pet=animal de estimação|dog=cachorro|cat=gato|birthday=aniversário|born=nascido|older=mais velho|younger=mais novo|only child=filho único|twins=gêmeos|relatives=parentes|best friend=melhor amigo(a)|partner=parceiro(a), cônjuge|look like=parecer com|get along=se dar bem"},
+{t:"Horários e rotina de trabalho",en:"Time & work routine",goal:"Dizer as horas, os dias e contar a rotina de outra pessoa.",
+g:"Present simple com he / she / it + advérbios de frequência",gx:"Com he, she e it o verbo ganha -s: she works, he watches. Na negativa e na pergunta use doesn't e Does, e o verbo volta à forma base. Advérbios como always e never ficam antes do verbo principal.",
+ge:[["She works from 9 to 5.","Ela trabalha das 9 às 5."],["He doesn't play on Mondays.","Ele não joga às segundas."],["Does your boss arrive early?","Seu chefe chega cedo?"],["I usually go to the gym twice a week.","Eu geralmente vou à academia duas vezes por semana."]],
+ch:["What time is it?","It's half past…","She works from… to…","I go to the gym twice a week.","I'm busy on Mondays."],
+ci:"comprehensible input English beginners telling time daily schedule",bbc:"BBC Learning English telling the time",news:"uma notícia sobre trabalho ou empregos",game:"Animal Crossing ou Stardew Valley: horários das lojas e o calendário",gamev:"Animal Crossing daily routine gameplay",rp:"A IA é uma colega de trabalho nova. Vocês combinam o horário de uma reunião.",speak:"Conte a rotina de uma pessoa da sua família com he/she: She wakes up at…",write:"Escreva a sua semana: o que faz em cada dia, com always, usually e never.",
+v:"time=tempo, hora|hour=hora|minute=minuto|o'clock=em ponto|half past=e meia|quarter past=e quinze|quarter to=quinze para|a.m.=da manhã|p.m.=da tarde, da noite|noon=meio-dia|midnight=meia-noite|Monday=segunda-feira|Tuesday=terça-feira|Wednesday=quarta-feira|Thursday=quinta-feira|Friday=sexta-feira|Saturday=sábado|Sunday=domingo|weekend=fim de semana|weekday=dia de semana|today=hoje|tomorrow=amanhã|yesterday=ontem|week=semana|month=mês|year=ano|January=janeiro|February=fevereiro|March=março|April=abril|May=maio|June=junho|July=julho|August=agosto|September=setembro|October=outubro|November=novembro|December=dezembro|start=começar|finish=terminar|work=trabalhar, trabalho|study=estudar|go to work=ir trabalhar|get home=chegar em casa|have lunch=almoçar|take a break=fazer uma pausa|meeting=reunião|office=escritório|boss=chefe|coworker=colega de trabalho|schedule=agenda, horário|busy=ocupado|free=livre|on time=na hora certa|once=uma vez|twice=duas vezes|three times=três vezes|often=frequentemente|rarely=raramente|every week=toda semana|in the morning=de manhã|in the afternoon=à tarde|in the evening=no fim da tarde, à noite|at night=à noite|gym=academia|exercise=exercício, se exercitar|relax=relaxar|watch TV=ver TV|play video games=jogar videogame|read=ler|homework=lição de casa|calendar=calendário|appointment=consulta, compromisso|deadline=prazo"},
+{t:"Na cidade",en:"Around town & directions",goal:"Pedir e dar direções e falar dos lugares do seu bairro.",
+g:"Preposições de lugar + imperativo",gx:"Preposições dizem onde algo está: next to, between, in front of, behind, across from. O imperativo dá instruções com o verbo na forma base, sem sujeito: Turn left. Go straight.",
+ge:[["The bank is next to the pharmacy.","O banco fica ao lado da farmácia."],["Go straight and turn right.","Siga reto e vire à direita."],["The bus stop is across from the park.","O ponto de ônibus fica em frente ao parque."],["Don't cross here.","Não atravesse aqui."]],
+ch:["Excuse me, where is…?","How do I get to…?","Go straight and turn left.","It's next to…","Is it far from here?"],
+ci:"comprehensible input English beginners places in town directions",bbc:"BBC Learning English asking for directions",news:"uma notícia sobre trânsito ou transporte na cidade",game:"GTA, Spider-Man ou qualquer mundo aberto: siga o mapa narrando as direções",gamev:"Spider-Man PS4 free roam gameplay",rp:"Você é turista em Londres e pergunta para a IA (um morador) como chegar ao museu.",speak:"Explique em voz alta o caminho da sua casa até a padaria mais próxima.",write:"Descreva o seu bairro em 6 frases usando preposições de lugar.",
+v:"street=rua|avenue=avenida|corner=esquina|block=quarteirão|square=praça|park=parque|bank=banco|hospital=hospital|pharmacy=farmácia|school=escola|church=igreja|mall=shopping|store=loja|market=mercado, feira|post office=correio|police station=delegacia|bus stop=ponto de ônibus|train station=estação de trem|subway=metrô|airport=aeroporto|museum=museu|library=biblioteca|hotel=hotel|gas station=posto de gasolina|parking lot=estacionamento|building=prédio|bridge=ponte|traffic light=semáforo|crosswalk=faixa de pedestres|sidewalk=calçada|map=mapa|address=endereço|near=perto|far=longe|next to=ao lado de|between=entre|in front of=na frente de|behind=atrás de|across from=em frente a (do outro lado)|on the left=à esquerda|on the right=à direita|straight ahead=em frente, reto|turn left=vire à esquerda|turn right=vire à direita|go straight=siga reto|cross=atravessar|walk=andar, caminhar|drive=dirigir|take the bus=pegar o ônibus|get off=descer (do ônibus)|get on=subir (no ônibus)|downtown=centro da cidade|neighborhood=bairro|north=norte|south=sul|east=leste|west=oeste|lost=perdido|Where is…?=Onde fica…?|How do I get to…?=Como eu chego em…?|around the corner=virando a esquina|city hall=prefeitura|stadium=estádio|beach=praia|river=rio|coffee shop=cafeteria|movie theater=cinema|theater=teatro|taxi=táxi|ticket=bilhete, ingresso|line=fila|traffic=trânsito|stop=parar, parada"},
+{t:"Compras e dinheiro",en:"Shopping & money",goal:"Comprar roupas e coisas, perguntar preços e pagar.",
+g:"This / that / these / those + How much / How many",gx:"This (perto) e that (longe) para singular; these e those para plural. How much pergunta preço ou quantidade incontável; How many, quantidade contável.",
+ge:[["How much is this jacket?","Quanto custa esta jaqueta?"],["Those shoes are cheap.","Aqueles sapatos estão baratos."],["How many T-shirts do you want?","Quantas camisetas você quer?"],["Can I try these on?","Posso experimentar estes?"]],
+ch:["How much is this?","Can I try it on?","Do you have it in medium?","I'll pay by card.","That's too expensive."],
+ci:"comprehensible input English beginners shopping clothes",bbc:"BBC Learning English shopping for clothes",news:"uma notícia sobre preços, compras ou economia",game:"The Sims ou Animal Crossing: comprar roupas e móveis lendo as descrições",gamev:"Animal Crossing shopping gameplay",rp:"A IA é vendedora numa loja de roupas. Você procura uma jaqueta no seu tamanho e pede desconto.",speak:"Pegue 5 objetos da sua casa e diga em voz alta quanto acha que custam.",write:"Escreva um diálogo curto de compra numa loja (8 falas).",
+v:"money=dinheiro|price=preço|cheap=barato|expensive=caro|sale=liquidação|discount=desconto|change=troco|receipt=recibo, nota fiscal|buy=comprar|sell=vender|pay=pagar|cost=custar|spend=gastar|save=economizar|shopping=compras|size=tamanho|small=pequeno|medium=médio|large=grande|try on=experimentar (roupa)|fitting room=provador|shirt=camisa|T-shirt=camiseta|pants=calça|jeans=calça jeans|shorts=bermuda, short|skirt=saia|dress=vestido|jacket=jaqueta|coat=casaco|sweater=suéter|hoodie=moletom com capuz|socks=meias|sneakers=tênis|boots=botas|hat=chapéu|cap=boné|bag=bolsa, sacola|backpack=mochila|wallet=carteira|watch=relógio de pulso|ring=anel|color=cor|red=vermelho|yellow=amarelo|black=preto|white=branco|gray=cinza|pink=rosa|purple=roxo|this=este, esta|that=aquele, aquela|these=estes, estas|those=aqueles, aquelas|How much is it?=Quanto custa?|How many=quantos|thirty=trinta|forty=quarenta|fifty=cinquenta|hundred=cem|thousand=mil|dollar=dólar|real=real (moeda)|refund=reembolso|return=devolver|online=on-line|delivery=entrega|free shipping=frete grátis|cart=carrinho|checkout=finalizar compra, caixa|brand=marca|quality=qualidade|new=novo|used=usado|broken=quebrado|gift=presente|customer=cliente|cashier=caixa (pessoa)"},
+{t:"Jogos e tecnologia",en:"Games & tech",goal:"Falar do que você sabe e não sabe fazer nos jogos e no computador.",
+g:"Can / can't (habilidade e pedido)",gx:"Can indica habilidade ou possibilidade e é igual para todas as pessoas: I can, she can. O verbo depois dele fica na forma base. Também serve para pedidos: Can you help me?",
+ge:[["I can play the guitar, but I can't sing.","Eu sei tocar violão, mas não sei cantar."],["Can you jump in this game?","Dá para pular neste jogo?"],["She can't log in.","Ela não consegue entrar (na conta)."],["Can you pass me the controller?","Pode me passar o controle?"]],
+ch:["I can… but I can't…","Can you help me?","Let's play together.","Good game!","I'm lagging."],
+ci:"comprehensible input English beginners video games",bbc:"BBC Learning English video games vocabulary",news:"uma notícia sobre tecnologia ou games",game:"o seu jogo favorito com o idioma todo em inglês, lendo menus e tutoriais",gamev:"beginner tutorial gameplay English",rp:"A IA é um colega de time num jogo online. Vocês combinam a estratégia antes da partida.",speak:"Jogue 10 minutos narrando como streamer: I'm going left… I can't jump…",write:"Escreva 6 frases sobre o que você consegue e não consegue fazer no seu jogo favorito.",
+v:"game=jogo|video game=videogame|player=jogador|level=nível, fase|quest=missão|mission=missão|boss=chefão|enemy=inimigo|character=personagem|health=vida (saúde)|lives=vidas|score=pontuação|points=pontos|win=ganhar|lose=perder|play=jogar|save=salvar|load=carregar|pause=pausar|settings=configurações|controller=controle|keyboard=teclado|mouse=mouse|screen=tela|headset=fone com microfone|console=console|computer=computador|laptop=notebook|phone=celular|app=aplicativo|download=baixar|update=atualizar, atualização|install=instalar|internet=internet|Wi-Fi=Wi-Fi|password=senha|account=conta|log in=entrar (na conta)|offline=off-line|multiplayer=multijogador|team=time|teammate=colega de time|match=partida|round=rodada|skill=habilidade|weapon=arma|item=item|inventory=inventário|mini-map=minimapa|jump=pular|run=correr|shoot=atirar|attack=atacar|defend=defender|heal=curar|hide=esconder|collect=coletar|unlock=desbloquear|upgrade=melhorar, melhoria|achievement=conquista|easy=fácil|hard=difícil|difficulty=dificuldade|tutorial=tutorial|checkpoint=ponto de salvamento|respawn=renascer (no jogo)|lag=lag, atraso|bug=bug, erro|streamer=streamer|stream=transmissão|chat=chat|voice chat=chat de voz|good game (GG)=bom jogo|fast=rápido|slow=lento|can=poder, conseguir, saber|can't=não poder, não conseguir"},
+{t:"Hobbies e fim de semana",en:"Hobbies & free time",goal:"Contar o que você gosta de fazer e o que está fazendo agora.",
+g:"Present continuous + like / love / hate + -ing",gx:"O present continuous (am/is/are + verbo-ing) fala do que está acontecendo agora. Depois de like, love, hate e enjoy, o verbo também vem com -ing.",
+ge:[["I'm watching a series right now.","Estou assistindo uma série agora."],["She loves playing chess.","Ela adora jogar xadrez."],["Are you having fun?","Você está se divertindo?"],["I hate waking up early.","Eu odeio acordar cedo."]],
+ch:["What are you doing?","I'm watching…","I love playing…","I'm into…","What do you like doing on weekends?"],
+ci:"comprehensible input English beginners hobbies free time",bbc:"BBC Learning English hobbies",news:"uma notícia sobre esportes ou cultura",game:"Animal Crossing ou The Sims: os hobbies dos personagens",gamev:"The Sims 4 hobbies gameplay",rp:"A IA é uma pessoa num app de intercâmbio de idiomas. Vocês conversam sobre hobbies e combinam algo para o fim de semana.",speak:"Durante o dia, pare 3 vezes e diga o que você está fazendo: I'm cooking…",write:"Escreva sobre o seu fim de semana ideal em 6 frases com like, love e hate.",
+v:"hobby=hobby, passatempo|free time=tempo livre|music=música|song=canção|band=banda|singer=cantor(a)|concert=show|movie=filme|series=série|episode=episódio|actor=ator|book=livro|reading=leitura|writing=escrita|drawing=desenho|painting=pintura|photography=fotografia|cooking=culinária|dancing=dança|singing=canto|swimming=natação|running=corrida|cycling=ciclismo|hiking=trilha, caminhada|camping=acampamento|fishing=pesca|soccer=futebol|basketball=basquete|volleyball=vôlei|skateboarding=skate|surfing=surfe|chess=xadrez|board game=jogo de tabuleiro|cards=cartas, baralho|yoga=ioga|guitar=violão, guitarra|piano=piano|drums=bateria|instrument=instrumento|party=festa|go out=sair|stay home=ficar em casa|hang out=sair com amigos|chill=relaxar (informal)|have fun=se divertir|boring=chato|interesting=interessante|exciting=empolgante|fun=divertido|favorite=favorito|enjoy=curtir, aproveitar|like=gostar|love=amar, adorar|hate=odiar|prefer=preferir|can't stand=não suportar|be into=curtir, ser fã de|be good at=ser bom em|practice=praticar|learn=aprender|club=clube|mountain=montanha|watch=assistir|listen to=ouvir|podcast=podcast|YouTube channel=canal do YouTube|social media=redes sociais|post=postar, publicação|follow=seguir|share=compartilhar|video=vídeo|comment=comentar, comentário|right now=agora mesmo|together=juntos"},
+{t:"Notícias e o mundo",en:"News & the world",goal:"Entender e contar uma notícia simples, inclusive de política.",
+g:"Past simple: was / were + verbos regulares (-ed)",gx:"O passado do to be é was (I/he/she/it) e were (you/we/they). Verbos regulares ganham -ed: vote → voted. Na negativa e na pergunta use didn't e Did, com o verbo na forma base.",
+ge:[["The election was on Sunday.","A eleição foi no domingo."],["Many people voted yesterday.","Muitas pessoas votaram ontem."],["The president didn't announce the plan.","O presidente não anunciou o plano."],["Were you at the protest?","Você estava no protesto?"]],
+ch:["Did you see the news?","Yesterday, the president…","There was an election in…","I agree. / I disagree.","In my country…"],
+ci:"comprehensible input English beginners government election",bbc:"BBC Learning English news review",news:"uma notícia de política internacional (VOA Learning English)",game:"Democracy 4 ou Papers, Please, lendo as decisões em voz alta",gamev:"Papers Please gameplay",rp:"A IA é um jornalista estrangeiro que pergunta como funcionam as eleições no Brasil. Responda com frases simples.",speak:"Conte em voz alta uma notícia que você viu hoje, em 4 frases no passado.",write:"Resuma uma notícia em 5 frases no passado e diga se você concorda.",
+v:"news=notícias|newspaper=jornal|article=artigo|headline=manchete|journalist=jornalista|reporter=repórter|TV channel=canal de TV|government=governo|president=presidente|vice president=vice-presidente|minister=ministro|mayor=prefeito|governor=governador|senator=senador|congress=congresso|senate=senado|law=lei|vote=votar, voto|voter=eleitor|election=eleição|candidate=candidato|campaign=campanha|political party=partido político|left wing=esquerda (política)|right wing=direita (política)|democracy=democracia|citizen=cidadão|nation=nação|state=estado|capital=capital|border=fronteira|world=mundo|war=guerra|peace=paz|economy=economia|tax=imposto|unemployment=desemprego|inflation=inflação|protest=protesto|rights=direitos|freedom=liberdade|power=poder|leader=líder|debate=debate|speech=discurso|poll=pesquisa de opinião|won=ganhou, venceu|majority=maioria|minority=minoria|public=público|private=privado|health care=saúde (sistema)|education=educação|environment=meio ambiente|climate change=mudança climática|crime=crime|safety=segurança|police=polícia|court=tribunal|judge=juiz|decision=decisão|agree=concordar|disagree=discordar|opinion=opinião|support=apoiar, apoio|against=contra|problem=problema|solution=solução|announce=anunciar|happen=acontecer|change=mudar, mudança|increase=aumentar|decrease=diminuir|important=importante|was / were=era, estava, foi / eram, estavam, foram|yesterday's news=notícias de ontem|last week=semana passada|ago=atrás (tempo)"},
+{t:"Viagens",en:"Travel & transport",goal:"Contar uma viagem que você fez e se virar no aeroporto e no hotel.",
+g:"Past simple: verbos irregulares",gx:"Muitos verbos comuns têm passado irregular, que precisa ser decorado: go → went, see → saw, eat → ate. Na negativa e na pergunta, volte para a forma base: I didn't go. Did you see…?",
+ge:[["Last year I went to Chile.","No ano passado eu fui para o Chile."],["We took a lot of photos.","Nós tiramos muitas fotos."],["I didn't buy any souvenirs.","Eu não comprei nenhuma lembrancinha."],["Did you fly or drive?","Você foi de avião ou de carro?"]],
+ch:["Last year I went to…","I stayed at…","I'd like to check in.","My flight was delayed.","It was amazing!"],
+ci:"comprehensible input English beginners travel vacation story",bbc:"BBC Learning English at the airport",news:"uma notícia sobre turismo ou aeroportos",game:"Pokémon ou Zelda: narre a viagem do personagem no passado",gamev:"Zelda Breath of the Wild gameplay no commentary",rp:"A IA é recepcionista de hotel. Você faz check-in, pergunta o horário do café e pede um quarto maior.",speak:"Conte a sua última viagem em 6 frases no passado: went, saw, ate, stayed.",write:"Escreva um relato de 8 frases sobre uma viagem, real ou inventada.",
+v:"trip=viagem|travel=viajar|vacation=férias|holiday=feriado, férias|tourist=turista|passport=passaporte|visa=visto|luggage=bagagem|suitcase=mala|boarding pass=cartão de embarque|flight=voo|plane=avião|gate=portão de embarque|delay=atraso|cancel=cancelar|arrive=chegar|depart=partir|departure=partida|arrival=chegada|check in=fazer check-in|check out=fazer check-out|reservation=reserva|book=reservar|single room=quarto de solteiro|double room=quarto de casal|reception=recepção|guide=guia|tour=passeio guiado|sightseeing=passeio turístico|souvenir=lembrancinha|island=ilha|lake=lago|countryside=interior, campo|abroad=no exterior|foreign=estrangeiro|currency=moeda|exchange=câmbio, trocar|sunscreen=protetor solar|camera=câmera|went=foi (go)|saw=viu (see)|ate=comeu (eat)|took=pegou, tirou (take)|bought=comprou (buy)|had=teve (have)|came=veio (come)|got=conseguiu, chegou (get)|made=fez (make)|met=conheceu (meet)|found=encontrou (find)|left=saiu, deixou (leave)|flew=voou (fly)|drove=dirigiu (drive)|slept=dormiu (sleep)|spent=gastou, passou (spend)|wrote=escreveu (write)|gave=deu (give)|felt=sentiu (feel)|knew=sabia, conhecia (know)|thought=pensou (think)|told=contou (tell)|said=disse (say)|car=carro|train=trem|bus=ônibus|boat=barco|ship=navio|bike=bicicleta|motorcycle=moto|rent=alugar|ride=andar de (bike, cavalo)|road=estrada|highway=rodovia|seat=assento|window seat=assento na janela|aisle seat=assento no corredor"},
+{t:"Planos e opiniões",en:"Plans & opinions",goal:"Falar dos seus planos e dar a sua opinião com motivos.",
+g:"Going to (futuro) + I think / In my opinion",gx:"Am/is/are going to + verbo fala de planos já decididos. Para dar opinião, comece com I think…, In my opinion… ou I'm not sure, but… e justifique com because.",
+ge:[["I'm going to study every day.","Eu vou estudar todo dia."],["She's going to move to Canada.","Ela vai se mudar para o Canadá."],["In my opinion, this game is too hard.","Na minha opinião, este jogo é difícil demais."],["I think it's a good idea because it's cheap.","Acho que é uma boa ideia porque é barato."]],
+ch:["I'm going to…","In my opinion…","I think that…, because…","My goal is to…","I'm not sure, but…"],
+ci:"comprehensible input English beginners future plans going to",bbc:"BBC Learning English giving opinions",news:"uma notícia que gere opinião (economia, games ou política)",game:"Life is Strange: pause em cada escolha e diga o que vai fazer e por quê",gamev:"Life is Strange episode 1 gameplay",rp:"A IA é entrevistadora de emprego e pergunta sobre os seus planos para os próximos 5 anos.",speak:"Diga em voz alta 5 planos para o próximo mês e uma opinião sobre cada um.",write:"Escreva um parágrafo: meus planos com o inglês para os próximos 6 meses.",
+v:"plan=plano, planejar|future=futuro|goal=meta|dream=sonho|next week=semana que vem|next month=mês que vem|next year=ano que vem|tonight=hoje à noite|soon=em breve|later=mais tarde|someday=algum dia|going to=vai, vou (futuro)|want to=querer|need to=precisar|hope=esperar, ter esperança|wish=desejar|decide=decidir|try=tentar|stop=parar|keep=continuar, manter|in my opinion=na minha opinião|I think=eu acho|I believe=eu acredito|I'm not sure=não tenho certeza|maybe=talvez|probably=provavelmente|definitely=com certeza|of course=claro|because=porque|but=mas|so=então, por isso|also=também|however=porém|actually=na verdade|really=realmente, muito|better=melhor|worse=pior|best=o melhor|worst=o pior|more=mais|less=menos|right=certo|wrong=errado|true=verdadeiro|false=falso|idea=ideia|reason=motivo|example=exemplo|for example=por exemplo|choice=escolha|chance=chance|possible=possível|impossible=impossível|difficult=difícil|sure=certo, com certeza|improve=melhorar|become=tornar-se|grow=crescer|career=carreira|job interview=entrevista de emprego|promotion=promoção|move=mudar-se|get better=melhorar|get a job=conseguir um emprego|look for=procurar|excited=animado|worried=preocupado|nervous=nervoso|ready=pronto|confident=confiante|success=sucesso|fail=falhar|mistake=erro|advice=conselho|future plans=planos para o futuro"}
+];
+W.forEach(w=>{w.vv=w.v.split("|").map(p=>{const i=p.indexOf("=");return[p.slice(0,i),p.slice(i+1)]})});
+
+const slice=(w,d)=>{const n=Math.ceil(w.vv.length/6);return w.vv.slice(d*n,(d+1)*n)};
+const plan=(wi,d)=>{
+  const w=W[wi],nx=W[wi+1];
+  const sl=d<6?slice(w,d):[];
+  const anki={min:15,what:`Anki: revisões do dia + ${sl.length} palavras novas da semana (estão logo abaixo). Crie cada cartão com uma frase de exemplo.`,r:R.anki};
+  const P=[
+    {f:"Input + sentence mining",t:[anki,
+      {min:40,what:`Input compreensível: assista vídeos sobre "${w.en.toLowerCase()}". Sem legenda em português; use a imagem e os gestos para entender.`,r:{n:R.ci.n,u:yt(w.ci)}},
+      {min:10,what:"Sentence mining: salve 5 frases úteis do vídeo (frase em inglês + tradução) para virar cartão no Anki.",r:R.lr},
+      {min:15,what:"Shadowing: escolha 1 minuto do vídeo e repita junto, 5 a 10 vezes, imitando o ritmo.",r:R.lr},
+      {min:10,what:w.speak,r:{n:"Falar sozinho (micro-hábito)"}}]},
+    {f:"Gramática + shadowing",t:[anki,
+      {min:20,what:`Gramática: ${w.g}. Leia a explicação e os exemplos da semana e crie 5 frases suas sobre a sua vida.`,r:{n:"Painel de gramática desta página"}},
+      {min:25,what:`Input: vídeo ou episódio curto sobre o tema da semana.`,r:{n:R.bbc.n,u:yt(w.bbc)}},
+      {min:20,what:`Chorusing: repita as frases-chave da semana junto com um áudio nativo (busque cada uma no YouGlish) até soar igual.`,r:R.yg},
+      {min:10,what:"Diga em voz alta os exemplos de gramática trocando as palavras por coisas da sua vida.",r:{n:"Falar sozinho"}}]},
+    {f:"Leitura + conversa com IA",t:[anki,
+      {min:30,what:`Leitura e escuta: ${w.news}. Leia, ouça o áudio e sublinhe o que não entendeu.`,r:wi>=9?R.voa:R.nil},
+      {min:10,what:"Sentence mining: salve 5 frases do texto.",r:R.anki},
+      {min:25,what:`Conversa com IA sobre "${w.t}". Use o prompt de conversa do seu plano, no nível A1/A2, e peça o feedback só no final.`,r:R.ia},
+      {min:10,what:w.write,r:R.ia}]},
+    {f:"Jogos + interação com o conteúdo",t:[anki,
+      {min:35,what:`Jogo ou gameplay: ${w.game}. Pause a cada fala ou cena e responda, preveja o que vem ou comente em voz alta.`,r:{n:"Gameplay no YouTube (ou o próprio jogo)",u:yt(w.gamev)}},
+      {min:15,what:"Shadowing de um trecho de 30 segundos de diálogo do jogo.",r:R.lr},
+      {min:15,what:"Caçar lacunas: pesquise como dizer as coisas em que você travou e salve como frase.",r:R.cam},
+      {min:10,what:"Narre como streamer: jogue ou reveja o gameplay comentando cada ação.",r:{n:"Falar sozinho"}}]},
+    {f:"Roleplay de situação real",t:[anki,
+      {min:30,what:"Reassista o vídeo de segunda sem legenda e perceba quanto a mais você entende.",r:{n:R.ci.n,u:yt(w.ci)}},
+      {min:15,what:`Chorusing das frases-chave: ${w.ch.join(" · ")}`,r:R.yg},
+      {min:25,what:`Roleplay com IA (modo de voz): ${w.rp}`,r:R.ia},
+      {min:5,what:"Anote os 3 erros que a IA apontou e transforme em cartões.",r:R.anki}]},
+    {f:"Imersão longa com jogos",t:[{...anki,min:10},
+      {min:50,what:`Sessão longa: ${w.game}, com áudio e legenda em inglês. Se passar dos 90 minutos, ótimo.`,r:{n:"Seu jogo ou gameplay",u:yt(w.gamev)}},
+      {min:20,what:"Conteúdo livre do seu barril de jogos (review, notícia ou live curta).",r:{n:"Seu barril de conteúdos"}},
+      {min:10,what:"Narre em voz alta o que aconteceu na sessão, no passado se já souber.",r:{n:"Falar sozinho"}}]},
+    {f:"Revisão + barril da próxima semana",t:[{min:15,what:"Anki: só revisões, sem palavras novas.",r:R.anki},
+      {min:20,what:"Autoteste do vocabulário da semana: no painel de vocabulário, esconda a tradução e diga o significado de cada palavra.",r:{n:"Painel de vocabulário desta página"}},
+      {min:20,what:"Reouça o conteúdo que você mais gostou na semana, só o áudio.",r:{n:"Seu barril (pasta Tempos mortos)"}},
+      {min:15,what:`Grave 1 a 2 minutos falando sobre "${w.t}" e guarde para comparar no fim do mês.`,r:{n:"Gravador do celular"}},
+      {min:10,what:"Revisão com IA: peça uma história curta usando as frases que você salvou e reconte com as suas palavras.",r:R.ia},
+      {min:10,what:nx?`Barril: escolha os vídeos da próxima semana sobre "${nx.t}".`:"Barril: separe conteúdos de nível A2 para começar a Fase 2.",r:{n:"Seu barril de conteúdos"}}]}
+  ];
+  return {...P[d],w:sl};
+};
+
+const KEY="roteiro-ingles-a1a2";
+let st={done:{},week:0};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s&&s.done)st=s}catch(e){}
+const hd=window.claude?.hot?.data;if(hd&&hd.done)st=hd;
+window.claude?.hot?.snapshot?.(()=>st);
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const id=(w,d)=>w+"-"+d;
+let hidePt=false;
+
+const renderTop=()=>{
+  const n=Object.values(st.done).filter(Boolean).length,tot=W.length*7,p=Math.round(n/tot*100);
+  document.getElementById("pct").textContent=p+"%";
+  document.getElementById("pctTxt").textContent=`${n} de ${tot} dias concluídos`;
+  document.getElementById("barFill").style.width=p+"%";
+  const g=document.getElementById("grid");
+  g.innerHTML='<span></span>'+DAYS.map(d=>`<span class="dh">${d}</span>`).join("")+W.map((w,wi)=>`<span class="wl">S${wi+1}</span>`+DAYS.map((d,di)=>`<button class="cell${st.done[id(wi,di)]?" done":""}${wi===st.week?" cur":""}" data-w="${wi}" data-d="${di}" aria-label="Semana ${wi+1}, ${DAYN[di]}${st.done[id(wi,di)]?", concluído":""}"></button>`).join("")).join("");
+};
+const renderTabs=()=>{
+  document.getElementById("tabs").innerHTML=W.map((w,i)=>{const k=DAYS.filter((d,di)=>st.done[id(i,di)]).length;return `<button class="tab" role="tab" id="tab${i}" aria-selected="${i===st.week}" data-w="${i}">Semana ${i+1}<small>${esc(w.t)} · ${k}/7</small></button>`}).join("");
+};
+const resLink=r=>r.u?`<a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.n)}</a>`:esc(r.n);
+const renderWeek=(openDay)=>{
+  const wi=st.week,w=W[wi],k=DAYS.filter((d,di)=>st.done[id(wi,di)]).length;
+  const res=[
+    {n:"Vídeos de input compreensível",u:yt(w.ci),s:`${R.ci.n}: busque pelo tema da semana`},
+    {n:R.bbc.n,u:yt(w.bbc),s:"Vídeos curtos sobre o tema, com explicação clara"},
+    wi>=9?{n:R.voa.n,u:R.voa.u,s:"Notícias reais em inglês simplificado"}:{n:R.nil.n,u:R.nil.u,s:"Notícias simples em 3 níveis; comece pelo 1"},
+    {n:"Jogo da semana",u:yt(w.gamev),s:w.game},
+    {n:R.lr.n,u:R.lr.u,s:"Legenda dupla, salvar frases e repetir trechos no YouTube"},
+    {n:R.anki.n,u:R.anki.u,s:"Flashcards com repetição espaçada"},
+    {n:R.yg.n,u:R.yg.u,s:"Ouça nativos dizendo as frases-chave"}
+  ];
+  document.getElementById("week").innerHTML=`
+  <div class="wkhead"><div><h2>Semana ${wi+1}: ${esc(w.t)}</h2><p>${esc(w.en)} · ${esc(w.goal)}</p></div><span class="wkp">${k} de 7 dias</span></div>
+  <div class="wk">
+    <section aria-label="Dias da semana">
+      <h3>Atividades diárias (90 min)</h3>
+      ${DAYS.map((d,di)=>{const p=plan(wi,di),dn=!!st.done[id(wi,di)],sum=p.t.reduce((a,t)=>a+t.min,0);
+      return `<details class="day${dn?" isdone":""}" id="d${di}"${openDay===di?" open":""}>
+        <summary><input type="checkbox" class="chk" data-d="${di}" ${dn?"checked":""} aria-label="Marcar ${DAYN[di]} como concluído"><span class="nm">${d}</span><span class="fc">${esc(p.f)}</span><span class="ar" aria-hidden="true">›</span></summary>
+        <div class="dbody">
+          ${p.t.map(t=>`<div class="task"><span class="min">${t.min} min</span><div><p>${esc(t.what)}</p><p class="rs">Recurso: ${resLink(t.r)}</p></div></div>`).join("")}
+          ${p.w.length?`<div class="task"><span class="min">Hoje</span><div><p>Palavras novas do dia</p><div class="words">${p.w.map(x=>`<span class="w">${esc(x[0])} <em>${esc(x[1])}</em></span>`).join("")}</div></div></div>`:""}
+          <p class="tot">Total: ${sum} minutos · ${DAYN[di]}</p>
+        </div></details>`}).join("")}
+    </section>
+    <aside>
+      <div class="panel"><h3>Gramática: ${esc(w.g)}</h3><p style="margin:0">${esc(w.gx)}</p>
+        <ul class="ex">${w.ge.map(e=>`<li>${esc(e[0])}<span>${esc(e[1])}</span></li>`).join("")}</ul></div>
+      <div class="panel"><h3>Frases-chave</h3><div class="chunks">${w.ch.map(c=>`<span>${esc(c)}</span>`).join("")}</div></div>
+      <div class="panel"><h3>Recursos da semana</h3><ul class="res">${res.map(r=>`<li><a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.n)}</a><small>${esc(r.s)}</small></li>`).join("")}</ul></div>
+    </aside>
+  </div>
+  <div class="panel" style="margin-top:8px">
+    <div class="vhead"><h3 style="margin:0">Vocabulário da semana: ${w.vv.length} palavras e expressões</h3><button class="btn" id="hideBtn" type="button">${hidePt?"Mostrar tradução":"Esconder tradução"}</button></div>
+    <div class="vgrid${hidePt?" hidept":""}" id="vgrid">${w.vv.map(x=>`<div>${esc(x[0])} <em>${esc(x[1])}</em></div>`).join("")}</div>
+  </div>`;
+  document.querySelectorAll("#vgrid div").forEach(el=>{if(hidePt)el.querySelector("em").style.visibility="hidden"});
+};
+const renderAll=d=>{renderTop();renderTabs();renderWeek(d)};
+
+document.addEventListener("click",e=>{
+  const c=e.target.closest(".cell");
+  if(c){st.week=+c.dataset.w;save();renderAll(+c.dataset.d);document.getElementById("d"+c.dataset.d)?.scrollIntoView({behavior:"smooth",block:"center"});return}
+  const t=e.target.closest(".tab");
+  if(t){st.week=+t.dataset.w;save();renderAll();return}
+  if(e.target.id==="hideBtn"){hidePt=!hidePt;const open=[...document.querySelectorAll(".day[open]")].map(x=>+x.id.slice(1))[0];renderWeek(open);return}
+  if(e.target.classList.contains("chk")){e.stopPropagation()}
+  if(e.target.id==="expBtn"){const b=new Blob([JSON.stringify(st,null,1)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="progresso-ingles.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);return}
+  if(e.target.id==="impBtn"){document.getElementById("impFile").click();return}
+});
+document.addEventListener("change",e=>{
+  if(e.target.id==="impFile"){const f=e.target.files[0];if(!f)return;f.text().then(t=>{const s=JSON.parse(t);if(!s||typeof s.done!=="object")throw 0;st={done:s.done,week:Math.min(Math.max(+s.week||0,0),W.length-1)};save();renderAll();document.getElementById("bkMsg").textContent="Progresso importado."}).catch(()=>{document.getElementById("bkMsg").textContent="Arquivo inválido."});e.target.value="";return}
+  if(!e.target.classList.contains("chk"))return;
+  const d=+e.target.dataset.d,k=id(st.week,d);
+  st.done[k]=e.target.checked;save();
+  const det=e.target.closest(".day"),wasOpen=det.open;
+  renderTop();renderTabs();renderWeek(wasOpen?d:undefined);
+});
+document.addEventListener("keydown",e=>{
+  if(!e.target.classList.contains("tab"))return;
+  if(e.key==="ArrowRight"||e.key==="ArrowLeft"){const n=(st.week+(e.key==="ArrowRight"?1:-1)+W.length)%W.length;st.week=n;save();renderAll();const b=document.getElementById("tab"+n);b.focus();b.scrollIntoView({block:"nearest",inline:"nearest"})}
+});
+renderAll();
+if("serviceWorker" in navigator&&location.protocol!=="file:")navigator.serviceWorker.register("sw.js").catch(()=>{});
+}
+</script>
+</body>
+</html>
